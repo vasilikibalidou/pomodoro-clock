@@ -1,45 +1,14 @@
 function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}class App extends React.Component {
   constructor(props) {
-    super(props);_defineProperty(this, "timer",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    () => {
+    super(props);
+    _defineProperty(this, "timer", () => {
       let mins = Math.floor(this.state.time / 60);
       let secs = this.state.time - mins * 60;
       secs = secs < 10 ? '0' + secs : secs;
       mins = mins < 10 ? '0' + mins : mins;
       return mins + ":" + secs;
-    });_defineProperty(this, "countdown",
-
-
-
-    () => {
+    });
+    _defineProperty(this, "countdown", () => {
       if (this.state.active === 'off') {
         this.start = setInterval(() => this.setState({
           time: this.state.time - 1,
@@ -52,9 +21,8 @@ function _defineProperty(obj, key, value) {if (key in obj) {Object.definePropert
 
         clearInterval(this.start);
       }
-    });_defineProperty(this, "reset",
-
-    () => {
+    });
+    _defineProperty(this, "reset", () => {
       this.setState({
         break: 5,
         session: 25,
@@ -73,33 +41,41 @@ function _defineProperty(obj, key, value) {if (key in obj) {Object.definePropert
           break: this.state.break + 1 });
 
       }
-    });_defineProperty(this, "handleIncSession",
-
-    () => {
+    });
+    _defineProperty(this, "handleIncSession", () => {
       if (this.state.session < 60) {
         this.setState({
           session: this.state.session + 1,
           time: (this.state.session + 1) * 60 });
 
       }
-    });_defineProperty(this, "handleDecBreak",
-
-    () => {
+    }); 
+    _defineProperty(this, "handleDecBreak", () => {
       if (this.state.break > 1) {
         this.setState({
           break: this.state.break - 1 });
 
       }
-    });_defineProperty(this, "handleDecSession",
-
-    () => {
+    });
+    _defineProperty(this, "handleDecSession", () => {
       if (this.state.session > 1) {
         this.setState({
           session: this.state.session - 1,
           time: (this.state.session - 1) * 60 });
 
       }
-    });this.state = { break: 5, session: 25, mode: 'Session', time: 25 * 60, active: 'off' };}componentDidUpdate(prevProps, prevState) {if (prevState.time === 0 && prevState.mode === 'Session') {this.audio.play();this.audio.currentTime = 0;this.setState({ time: this.state.break * 60, mode: 'Break' });} else if (prevState.time === 0 && prevState.mode === 'Break') {this.audio.play();this.audio.currentTime = 0;this.setState({ time: this.state.session * 60, mode: 'Session' });}}
+    });
+    
+   this.state = { break: 5, session: 25, mode: 'Session', time: 25 * 60, active: 'off' };}
+  componentDidUpdate(prevProps, prevState) {
+  if (prevState.time === 0 && prevState.mode === 'Session') {
+    this.audio.play();this.audio.currentTime = 0;
+    this.setState({ time: this.state.break * 60, mode: 'Break' });
+  } else if (prevState.time === 0 && prevState.mode === 'Break') {
+      this.audio.play();
+      this.audio.currentTime = 0;
+      this.setState({ time: this.state.session * 60, mode: 'Session' });
+  }}
 
   render() {
     return (
